@@ -17,19 +17,16 @@
  *
  */
 package org.wso2.carbon.extension.identity.authenticator.internal;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.osgi.service.component.ComponentContext;
 import org.wso2.carbon.extension.identity.authenticator.RSASecurIdAuthenticator;
 import org.wso2.carbon.identity.application.authentication.framework.ApplicationAuthenticator;
-
 /**
  * @scr.component name="identity.application.authenticator.RSASecurId.component" immediate="true"
  */
 public class RSASecurIdAuthenticatorServiceComponent {
     private static Log log = LogFactory.getLog(RSASecurIdAuthenticatorServiceComponent.class);
-
     protected void activate(ComponentContext ctxt) {
         try {
             RSASecurIdAuthenticator authenticator = new RSASecurIdAuthenticator();
@@ -42,7 +39,6 @@ public class RSASecurIdAuthenticatorServiceComponent {
             log.fatal("Error while activating the RSASecurId authenticator ", e);
         }
     }
-
     protected void deactivate(ComponentContext ctxt) {
         if (log.isDebugEnabled()) {
             log.debug("RSASecurId authenticator is deactivated");
