@@ -41,6 +41,7 @@
             <artifactId>org.wso2.carbon.user.core</artifactId>
             <version>${carbon.kernel.version}</version>
         </dependency>
+        <!-- un comment this after add the authapi.jar into ./component/authenticator/src/main/resources 
         <dependency>
             <groupId>com.rsa.authagent.authapi</groupId>
             <artifactId>rsa-auth-api</artifactId>
@@ -48,6 +49,7 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/component/authenticator/src/main/resources/authapi.jar</systemPath>
         </dependency>
+	-->
         </dependencies>
     </dependencyManagement>
     <repositories>
