@@ -66,8 +66,9 @@ public class RSASecurIdAuthenticator extends AbstractApplicationAuthenticator
         if (log.isDebugEnabled()) {
             log.debug("Inside RSA SecurId Authenticator canHandle()");
         }
-        String passCode = request.getParameter(RSASecurIdAuthenticatorConstants.RSA_USER_PASSCODE);
-        if (StringUtils.isNotEmpty(passCode)) {
+        String pin = request.getParameter(RSASecurIdAuthenticatorConstants.RSA_USER_PIN);
+        String token = request.getParameter(RSASecurIdAuthenticatorConstants.RSA_USER_TOKEN);
+        if (StringUtils.isNotEmpty(pin) && StringUtils.isNotEmpty(token)) {
             return true;
         }
         return false;
@@ -186,7 +187,9 @@ public class RSASecurIdAuthenticator extends AbstractApplicationAuthenticator
             throw new AuthenticationFailedException("Error occurred while loading user realm or user store manager : ",
                     e);
         }
-        String passCode = request.getParameter(RSASecurIdAuthenticatorConstants.RSA_USER_PASSCODE);
+        String pin = request.getParameter(RSASecurIdAuthenticatorConstants.RSA_USER_PIN);
+        String token = request.getParameter(RSASecurIdAuthenticatorConstants.RSA_USER_TOKEN);
+        String passCode = pin.concat(token);
         AuthSessionFactory authSessionFactory = null;
         if (StringUtils.isNotEmpty(rsaUserId) && StringUtils.isNotEmpty(passCode)) {
             AuthSession session = null;
@@ -211,13 +214,12 @@ public class RSASecurIdAuthenticator extends AbstractApplicationAuthenticator
                     try {
                         session.close();
                         authSessionFactory.shutdown();
-
                     } catch (AuthAgentException e) {
-                        throw new AuthenticationFailedException("Could not able to shutdown the API", e);
+                        log.error("AuthSessionFactory not shutdown");
                     }
             }
         } else {
-            throw new AuthenticationFailedException("Pass code is Empty");
+            throw new AuthenticationFailedException("RSA pass code is empty");
         }
     }
 }

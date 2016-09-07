@@ -101,13 +101,20 @@
                                     <% } }  %>
                                     <div class="row">
                                         <div class="span6">
-                                             <!-- Token Pin -->
+                                             <!-- PIN -->
                                              <div class="control-group">
                                                   <label class="control-label" for="password">
-                                                        Enter RSA PASS CODE (PIN+TOKEN) :
+                                                        Enter Your PIN :
                                                   </label>
-                                             <input type="password" id='code' name="code" class="input-xlarge" size='30'/>
+                                             <input type="password" id='pin' name="pin" class="input-xlarge" size='30'/>
                                              </div>
+                                             <!-- Token -->
+                                              <div class="control-group">
+                                                   <label class="control-label" for="password">
+                                                         Enter Your Token Code :
+                                                   </label>
+                                              <input type="password" id='code' name="code" class="input-xlarge" size='30'/>
+                                              </div>
                                              <input type="hidden" name="sessionDataKey"
                                                 value='<%=request.getParameter("sessionDataKey")%>'/>
                                              <div>
