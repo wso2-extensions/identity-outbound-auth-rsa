@@ -40,27 +40,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
+
 /**
  * RSA SecurId 2-Factor Authenticator
  */
 public class RSASecurIdAuthenticator extends AbstractApplicationAuthenticator
         implements LocalApplicationAuthenticator {
     private static Log log = LogFactory.getLog(RSASecurIdAuthenticator.class);
+
     /**
      * Get the friendly name of the RSA SecurID Authenticator
      *
      * @return RSA SecurId Authenticator Friendly Name
      */
+
     @Override
     public String getFriendlyName() {
         return RSASecurIdAuthenticatorConstants.AUTHENTICATOR_FRIENDLY_NAME;
     }
+
     /**
      * Check authentication request can be handled or not.
      *
      * @param request http servlet request to the authenticator
      * @return TRUE if RSA_USER_PASSCODE exists otherwise FALSE
      */
+
     @Override
     public boolean canHandle(HttpServletRequest request) {
         if (log.isDebugEnabled()) {
@@ -68,19 +74,19 @@ public class RSASecurIdAuthenticator extends AbstractApplicationAuthenticator
         }
         String pin = request.getParameter(RSASecurIdAuthenticatorConstants.RSA_USER_PIN);
         String token = request.getParameter(RSASecurIdAuthenticatorConstants.RSA_USER_TOKEN);
-        if (StringUtils.isNotEmpty(pin) && StringUtils.isNotEmpty(token)) {
-            return true;
-        }
-        return false;
+        return (StringUtils.isNotEmpty(pin) && StringUtils.isNotEmpty(token));
     }
+
     /**
      * Allowing user for retrying another attempt
      *
      * @return TRUE or FALSE
      */
+
     protected boolean retryAuthenticationEnabled() {
         return true;
     }
+
     /**
      * Initiating th authentication request to RSA Authenticator
      *
@@ -90,6 +96,7 @@ public class RSASecurIdAuthenticator extends AbstractApplicationAuthenticator
      *                              flow
      * @throws AuthenticationFailedException Throwing the authenticationFailedException
      */
+
     @Override
     protected void initiateAuthenticationRequest(HttpServletRequest request,
                                                  HttpServletResponse response,
@@ -98,6 +105,8 @@ public class RSASecurIdAuthenticator extends AbstractApplicationAuthenticator
         if (log.isDebugEnabled()) {
             log.debug("Inside the initiateAuthenticationRequest of RSA SecurID Authenticator");
         }
+        Map<String, String> rsaSecurIdParameters = getAuthenticatorConfig().getParameterMap();
+        String login = rsaSecurIdParameters.get(RSASecurIdAuthenticatorConstants.RSASECURID_AUTHENTICATION_ENDPOINT_URL);
         String rsaLoginPage;
         String retryParam = "";
         try {
@@ -108,7 +117,7 @@ public class RSASecurIdAuthenticator extends AbstractApplicationAuthenticator
                 retryParam = RSASecurIdAuthenticatorConstants.RETRY_PARAMS;
             }
             rsaLoginPage = ConfigurationFacade.getInstance().getAuthenticationEndpointURL()
-                    .replace(RSASecurIdAuthenticatorConstants.LOGIN_PAGE, RSASecurIdAuthenticatorConstants.LOGIN_ENDPOINT);
+                    .replace(RSASecurIdAuthenticatorConstants.LOGIN_PAGE, login);
             String queryParams = FrameworkUtils
                     .getQueryStringWithFrameworkContextId(authenticationContext.getQueryParams(),
                             authenticationContext.getCallerSessionKey(),
@@ -120,12 +129,14 @@ public class RSASecurIdAuthenticator extends AbstractApplicationAuthenticator
                     "and outputs", e);
         }
     }
+
     /**
      * Get the previously authenticated local user
      *
      * @param authenticationContext authenticationContext contains information about authentication
      * @return authenticatedUser information
      */
+
     private AuthenticatedUser getUsername(AuthenticationContext authenticationContext) {
         AuthenticatedUser authenticatedUser = null;
         for (int i = 1; i <= authenticationContext.getSequenceConfig().getStepMap().size(); i++) {
@@ -138,25 +149,30 @@ public class RSASecurIdAuthenticator extends AbstractApplicationAuthenticator
         }
         return authenticatedUser;
     }
+
     /**
      * Get the context identifier of authentication flow
      *
      * @param request http servlet request to the authentication framework
      * @return sessionDataKey
      */
+
     @Override
     public String getContextIdentifier(HttpServletRequest request) {
         return request.getParameter(FrameworkConstants.SESSION_DATA_KEY);
     }
+
     /**
      * Get the name of the RSA SecurId authenticator
      *
      * @return name of the authenticator
      */
+
     @Override
     public String getName() {
         return RSASecurIdAuthenticatorConstants.AUTHENTICATOR_NAME;
     }
+
     /**
      * Processing and validating the authentication
      *
@@ -166,11 +182,13 @@ public class RSASecurIdAuthenticator extends AbstractApplicationAuthenticator
      *                              flow
      * @throws AuthenticationFailedException
      */
+
     @Override
     protected void processAuthenticationResponse(HttpServletRequest request,
                                                  HttpServletResponse response,
                                                  AuthenticationContext authenticationContext)
             throws AuthenticationFailedException {
+        Map<String, String> rsaSecurIdParameters = getAuthenticatorConfig().getParameterMap();
         int authStatus;
         AuthenticatedUser authenticatedUser = getUsername(authenticationContext);
         String username = authenticatedUser.getAuthenticatedSubjectIdentifier();
@@ -194,16 +212,17 @@ public class RSASecurIdAuthenticator extends AbstractApplicationAuthenticator
         if (StringUtils.isNotEmpty(rsaUserId) && StringUtils.isNotEmpty(passCode)) {
             AuthSession session = null;
             try {
-                String configPath = CarbonUtils.getCarbonConfigDirPath() + File.separator
-                        + RSASecurIdAuthenticatorConstants.IDENTITY_CLAIM + File.separator;
-                configPath = configPath + RSASecurIdAuthenticatorConstants.RSA_PROPERTIES_FILE;
+                log.debug("RSA Second Step Authentication Started.");
+                String configPath = rsaSecurIdParameters.get(RSASecurIdAuthenticatorConstants.RSASECURID_PROPERTY_FILE);
                 authSessionFactory = AuthSessionFactory.getInstance(configPath);
                 session = authSessionFactory.createUserSession();
                 session.lock(rsaUserId);
+                log.debug("RSA UserId Locked");
                 authStatus = session.check(rsaUserId, passCode);
                 if (authStatus == AuthSession.ACCESS_OK) {
                     authenticationContext.setSubject(authenticatedUser);
                 } else {
+                    log.debug("RSA User Authentication Failed");
                     throw new AuthenticationFailedException("User enters invalid pass code");
                 }
             } catch (AuthAgentException e) {
@@ -215,7 +234,7 @@ public class RSASecurIdAuthenticator extends AbstractApplicationAuthenticator
                         session.close();
                         authSessionFactory.shutdown();
                     } catch (AuthAgentException e) {
-                        log.error("AuthSessionFactory not shutdown");
+                        log.error("AuthSessionFactory not shutdown",e);
                     }
             }
         } else {

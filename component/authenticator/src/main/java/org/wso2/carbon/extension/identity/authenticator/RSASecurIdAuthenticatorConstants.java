@@ -22,10 +22,9 @@ public class RSASecurIdAuthenticatorConstants {
     public static final String AUTHENTICATOR_FRIENDLY_NAME = "RSASecurIdAuthenticator";
     public static final String RSASecurId_CLAIM = "http://wso2.org/claims/identity/rsaUserId";
     public static final String LOGIN_PAGE = "authenticationendpoint/login.do";
-    public static final String LOGIN_ENDPOINT = "securidauthenticationendpoint/login.jsp";
     public static final String RSA_USER_TOKEN = "code";
     public static final String RETRY_PARAMS = "&authFailure=true&authFailureMsg=RSA+Login+Failed";
-    public static final String RSA_PROPERTIES_FILE = "rsa.properties";
-    public static final String IDENTITY_CLAIM = "identity";
     public static final String RSA_USER_PIN = "pin";
+    public static final String RSASECURID_AUTHENTICATION_ENDPOINT_URL = "RSASECURIDAuthenticationEndpointURL";
+    public static final String RSASECURID_PROPERTY_FILE = "RSASECURIDPropertyFile";
 }
