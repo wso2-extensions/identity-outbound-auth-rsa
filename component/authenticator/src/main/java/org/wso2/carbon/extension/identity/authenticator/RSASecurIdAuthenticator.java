@@ -54,7 +54,6 @@ public class RSASecurIdAuthenticator extends AbstractApplicationAuthenticator
      *
      * @return RSA SecurId Authenticator Friendly Name
      */
-
     @Override
     public String getFriendlyName() {
         return RSASecurIdAuthenticatorConstants.AUTHENTICATOR_FRIENDLY_NAME;
@@ -66,7 +65,6 @@ public class RSASecurIdAuthenticator extends AbstractApplicationAuthenticator
      * @param request http servlet request to the authenticator
      * @return TRUE if RSA_USER_PASSCODE exists otherwise FALSE
      */
-
     @Override
     public boolean canHandle(HttpServletRequest request) {
         if (log.isDebugEnabled()) {
@@ -82,7 +80,6 @@ public class RSASecurIdAuthenticator extends AbstractApplicationAuthenticator
      *
      * @return TRUE or FALSE
      */
-
     protected boolean retryAuthenticationEnabled() {
         return true;
     }
@@ -96,7 +93,6 @@ public class RSASecurIdAuthenticator extends AbstractApplicationAuthenticator
      *                              flow
      * @throws AuthenticationFailedException Throwing the authenticationFailedException
      */
-
     @Override
     protected void initiateAuthenticationRequest(HttpServletRequest request,
                                                  HttpServletResponse response,
@@ -136,7 +132,6 @@ public class RSASecurIdAuthenticator extends AbstractApplicationAuthenticator
      * @param authenticationContext authenticationContext contains information about authentication
      * @return authenticatedUser information
      */
-
     private AuthenticatedUser getUsername(AuthenticationContext authenticationContext) {
         AuthenticatedUser authenticatedUser = null;
         for (int i = 1; i <= authenticationContext.getSequenceConfig().getStepMap().size(); i++) {
@@ -156,7 +151,6 @@ public class RSASecurIdAuthenticator extends AbstractApplicationAuthenticator
      * @param request http servlet request to the authentication framework
      * @return sessionDataKey
      */
-
     @Override
     public String getContextIdentifier(HttpServletRequest request) {
         return request.getParameter(FrameworkConstants.SESSION_DATA_KEY);
@@ -167,7 +161,6 @@ public class RSASecurIdAuthenticator extends AbstractApplicationAuthenticator
      *
      * @return name of the authenticator
      */
-
     @Override
     public String getName() {
         return RSASecurIdAuthenticatorConstants.AUTHENTICATOR_NAME;
@@ -182,12 +175,14 @@ public class RSASecurIdAuthenticator extends AbstractApplicationAuthenticator
      *                              flow
      * @throws AuthenticationFailedException
      */
-
     @Override
     protected void processAuthenticationResponse(HttpServletRequest request,
                                                  HttpServletResponse response,
                                                  AuthenticationContext authenticationContext)
             throws AuthenticationFailedException {
+        if (log.isDebugEnabled()) {
+            log.debug("Inside the processAuthenticationResponse of RSA SecurID Authenticator");
+        }
         Map<String, String> rsaSecurIdParameters = getAuthenticatorConfig().getParameterMap();
         int authStatus;
         AuthenticatedUser authenticatedUser = getUsername(authenticationContext);
@@ -212,17 +207,20 @@ public class RSASecurIdAuthenticator extends AbstractApplicationAuthenticator
         if (StringUtils.isNotEmpty(rsaUserId) && StringUtils.isNotEmpty(passCode)) {
             AuthSession session = null;
             try {
-                log.debug("RSA Second Step Authentication Started.");
+                if (log.isDebugEnabled()) {
+                    log.debug("RSA Second Step Authentication Started.");
+                }
                 String configPath = rsaSecurIdParameters.get(RSASecurIdAuthenticatorConstants.RSASECURID_PROPERTY_FILE);
                 authSessionFactory = AuthSessionFactory.getInstance(configPath);
                 session = authSessionFactory.createUserSession();
                 session.lock(rsaUserId);
-                log.debug("RSA UserId Locked");
+                if (log.isDebugEnabled()) {
+                    log.debug("RSA UserId Locked");
+                }
                 authStatus = session.check(rsaUserId, passCode);
                 if (authStatus == AuthSession.ACCESS_OK) {
                     authenticationContext.setSubject(authenticatedUser);
                 } else {
-                    log.debug("RSA User Authentication Failed");
                     throw new AuthenticationFailedException("User enters invalid pass code");
                 }
             } catch (AuthAgentException e) {
