@@ -17,6 +17,7 @@
  *
  */
 package org.wso2.carbon.extension.identity.authenticator;
+
 public class RSASecurIdAuthenticatorConstants {
     public static final String AUTHENTICATOR_NAME = "RSASecurId";
     public static final String AUTHENTICATOR_FRIENDLY_NAME = "RSASecurIdAuthenticator";

@@ -26,28 +26,35 @@
     <url>http://wso2.org</url>
     <dependencyManagement>
         <dependencies>
-        <dependency>
-            <groupId>org.wso2.carbon.identity</groupId>
-            <artifactId>org.wso2.carbon.identity.application.authentication.framework</artifactId>
-            <version>${carbon.identity.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.wso2.carbon.identity</groupId>
-            <artifactId>org.wso2.carbon.identity.provisioning</artifactId>
-            <version>${carbon.identity.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.wso2.carbon</groupId>
-            <artifactId>org.wso2.carbon.user.core</artifactId>
-            <version>${carbon.kernel.version}</version>
-        </dependency>
-        <dependency>
-                 <groupId>com.rsa.authagent.authapi</groupId>
-                 <artifactId>rsa-auth-api</artifactId>
-                 <version>1.0.0</version>
-             </dependency>
+            <dependency>
+                <groupId>org.wso2.carbon.identity</groupId>
+                <artifactId>org.wso2.carbon.identity.application.authentication.framework</artifactId>
+                <version>${carbon.identity.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.carbon.identity</groupId>
+                <artifactId>org.wso2.carbon.identity.provisioning</artifactId>
+                <version>${carbon.identity.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.carbon</groupId>
+                <artifactId>org.wso2.carbon.user.core</artifactId>
+                <version>${carbon.kernel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.rsa.authagent.authapi</groupId>
+                <artifactId>rsa-auth-api</artifactId>
+                <version>1.0.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+    <scm>
+        <connection>scm:git:https://github.com/wso2-extensions/identity-outbound-auth-rsa.git</connection>
+        <url>https://github.com/wso2-extensions/identity-outbound-auth-rsa.git</url>
+        <developerConnection>scm:git:https://github.com/wso2-extensions/identity-outbound-auth-rsa.git
+        </developerConnection>
+        <tag>HEAD</tag>
+    </scm>
     <repositories>
         <repository>
             <id>wso2-nexus</id>
