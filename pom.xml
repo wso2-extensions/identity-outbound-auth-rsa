@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.wso2.carbon.extension.identity.authenticator</groupId>
     <artifactId>org.wso2.carbon.extension.identity.authenticator.rsasecurid</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>WSO2 Carbon Extension - RSA SecurID Pom</name>
     <url>http://wso2.org</url>
@@ -41,15 +41,11 @@
             <artifactId>org.wso2.carbon.user.core</artifactId>
             <version>${carbon.kernel.version}</version>
         </dependency>
-        <!-- un comment this after add the authapi.jar into ./component/authenticator/src/main/resources 
         <dependency>
-            <groupId>com.rsa.authagent.authapi</groupId>
-            <artifactId>rsa-auth-api</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/component/authenticator/src/main/resources/authapi.jar</systemPath>
-        </dependency>
-	-->
+                 <groupId>com.rsa.authagent.authapi</groupId>
+                 <artifactId>rsa-auth-api</artifactId>
+                 <version>1.0.0</version>
+             </dependency>
         </dependencies>
     </dependencyManagement>
     <repositories>
