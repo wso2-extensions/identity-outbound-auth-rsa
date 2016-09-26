@@ -44,11 +44,11 @@
             <artifactId>org.wso2.carbon.user.core</artifactId>
             <version>${carbon.kernel.version}</version>
         </dependency>
-	<dependency>
-                 <groupId>com.rsa.authagent.authapi</groupId>
-                 <artifactId>rsa-auth-api</artifactId>
-                 <version>1.0.0</version>
-             </dependency>
+        <dependency>
+            <groupId>com.rsa.authagent.authapi</groupId>
+            <artifactId>rsa-auth-api</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
     <build>
         <pluginManagement>

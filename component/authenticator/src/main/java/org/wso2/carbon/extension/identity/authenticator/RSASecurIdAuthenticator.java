@@ -16,6 +16,7 @@
  *  under the License.
  */
 package org.wso2.carbon.extension.identity.authenticator;
+
 import com.rsa.authagent.authapi.AuthAgentException;
 import com.rsa.authagent.authapi.AuthSession;
 import com.rsa.authagent.authapi.AuthSessionFactory;
@@ -35,10 +36,9 @@ import org.wso2.carbon.identity.core.util.IdentityTenantUtil;
 import org.wso2.carbon.user.api.UserRealm;
 import org.wso2.carbon.user.api.UserStoreException;
 import org.wso2.carbon.user.core.service.RealmService;
-import org.wso2.carbon.utils.CarbonUtils;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
@@ -232,7 +232,7 @@ public class RSASecurIdAuthenticator extends AbstractApplicationAuthenticator
                         session.close();
                         authSessionFactory.shutdown();
                     } catch (AuthAgentException e) {
-                        log.error("AuthSessionFactory not shutdown",e);
+                        log.error("AuthSessionFactory not shutdown", e);
                     }
             }
         } else {
