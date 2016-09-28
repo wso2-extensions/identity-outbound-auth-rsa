@@ -115,52 +115,6 @@
             </plugin>
         </plugins>
     </build>
-    <repositories>
-        <repository>
-            <id>wso2-nexus</id>
-            <name>WSO2 internal Repository</name>
-            <url>http://maven.wso2.org/nexus/content/groups/wso2-public/</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-                <checksumPolicy>ignore</checksumPolicy>
-            </releases>
-        </repository>
-        <repository>
-            <id>wso2.releases</id>
-            <name>WSO2 internal Repository</name>
-            <url>http://maven.wso2.org/nexus/content/repositories/releases/</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-                <checksumPolicy>ignore</checksumPolicy>
-            </releases>
-        </repository>
-        <repository>
-            <id>wso2.snapshots</id>
-            <name>Apache Snapshot Repository</name>
-            <url>http://maven.wso2.org/nexus/content/repositories/snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-    </repositories>
-    <distributionManagement>
-        <repository>
-            <id>nexus-releases</id>
-            <name>WSO2 Release Distribution Repository</name>
-            <url>http://maven.wso2.org/nexus/service/local/staging/deploy/maven2/</url>
-        </repository>
-        <snapshotRepository>
-            <id>wso2.snapshots</id>
-            <name>Apache Snapshot Repository</name>
-            <url>http://maven.wso2.org/nexus/content/repositories/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
     <properties>
         <carbon.identity.version>5.0.7</carbon.identity.version>
         <carbon.kernel.version>4.4.3</carbon.kernel.version>
