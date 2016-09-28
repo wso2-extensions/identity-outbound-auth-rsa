@@ -14,11 +14,13 @@
  ~ See the License for the specific language governing permissions and
  ~ limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.wso2.carbon.extension.identity.authenticator</groupId>
     <artifactId>org.wso2.carbon.extension.identity.authenticator.rsasecurid</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>WSO2 Carbon Extension - RSA SecurID Pom</name>
     <url>http://wso2.org</url>
@@ -26,7 +28,8 @@
         <dependencies>
             <dependency>
                 <groupId>org.wso2.carbon.identity</groupId>
-                <artifactId>org.wso2.carbon.identity.application.authentication.framework</artifactId>
+                <artifactId>org.wso2.carbon.identity.application.authentication.framework
+                </artifactId>
                 <version>${carbon.identity.version}</version>
             </dependency>
             <dependency>
@@ -43,13 +46,18 @@
                 <groupId>com.rsa.authagent.authapi</groupId>
                 <artifactId>rsa-auth-api</artifactId>
                 <version>1.0.0</version>
+                <scope>system</scope>
+                <systemPath>${project.basedir}/component/authenticator/src/main/lib/authapi.jar
+                </systemPath>
             </dependency>
         </dependencies>
     </dependencyManagement>
     <scm>
-        <connection>scm:git:https://github.com/wso2-extensions/identity-outbound-auth-rsa.git</connection>
+        <connection>scm:git:https://github.com/wso2-extensions/identity-outbound-auth-rsa.git
+        </connection>
         <url>https://github.com/wso2-extensions/identity-outbound-auth-rsa.git</url>
-        <developerConnection>scm:git:https://github.com/wso2-extensions/identity-outbound-auth-rsa.git
+        <developerConnection>
+            scm:git:https://github.com/wso2-extensions/identity-outbound-auth-rsa.git
         </developerConnection>
         <tag>HEAD</tag>
     </scm>
@@ -100,6 +108,18 @@
             </modules>
         </profile>
     </profiles>
+    <distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <name>WSO2 Release Distribution Repository</name>
+            <url>http://maven.wso2.org/nexus/service/local/staging/deploy/maven2/</url>
+        </repository>
+        <snapshotRepository>
+            <id>wso2.snapshots</id>
+            <name>Apache Snapshot Repository</name>
+            <url>http://maven.wso2.org/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
     <properties>
         <carbon.identity.version>5.0.7</carbon.identity.version>
         <carbon.kernel.version>4.4.3</carbon.kernel.version>

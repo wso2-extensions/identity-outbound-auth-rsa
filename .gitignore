@@ -8,10 +8,12 @@ target
 *.ipr
 .idea
 *.class
+*.jar
 
 # Package Files #
 *.war
 *.ear
+*.jar
 
 # ignore Intellij-IDEA files
 *.iml
