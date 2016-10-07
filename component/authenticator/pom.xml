@@ -48,7 +48,7 @@
             <artifactId>rsa-auth-api</artifactId>
             <version>1.0.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/lib/authapi.jar
+            <systemPath>${basedir}/src/main/lib/authapi.jar
             </systemPath>
         </dependency>
     </dependencies>
