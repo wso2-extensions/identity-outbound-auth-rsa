@@ -47,7 +47,7 @@ import java.util.Map;
  */
 public class RSASecurIdAuthenticator extends AbstractApplicationAuthenticator
         implements LocalApplicationAuthenticator {
-    private static Log log = LogFactory.getLog(RSASecurIdAuthenticator.class);
+    private static final Log log = LogFactory.getLog(RSASecurIdAuthenticator.class);
 
     /**
      * Get the friendly name of the RSA SecurID Authenticator

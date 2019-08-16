@@ -28,7 +28,7 @@ import org.wso2.carbon.identity.application.authentication.framework.Application
  * @scr.component name="identity.application.authenticator.RSASecurId.component" immediate="true"
  */
 public class RSASecurIdAuthenticatorServiceComponent {
-    private static Log log = LogFactory.getLog(RSASecurIdAuthenticatorServiceComponent.class);
+    private static final Log log = LogFactory.getLog(RSASecurIdAuthenticatorServiceComponent.class);
 
     protected void activate(ComponentContext ctxt) {
         try {
